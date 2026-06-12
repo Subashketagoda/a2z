@@ -1,0 +1,16 @@
+{
+  "name": "a2z-tech-solutions",
+  "version": "1.0.0",
+  "description": "Premium Website & Admin Backend for A2Z Tech Solutions",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "bcryptjs": "^2.4.3"
+  },
+  "private": true
+}

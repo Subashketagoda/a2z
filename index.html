@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2Z Tech Solutions | Premium Web & Software Development Sri Lanka</title>
+    <meta name="description" content="A2Z Tech Solutions provides cutting-edge website design, custom software development, mobile application design, IT infrastructure consulting, and SEO services in Sri Lanka.">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Dynamic Canvas Particle Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header / Navigation Bar -->
+    <header id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#hero" class="logo" aria-label="A2Z Tech Solutions Home">
+                    <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 50" width="190" height="40">
+                        <defs>
+                            <linearGradient id="logo-grad-header" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00f2fe" />
+                                <stop offset="100%" stop-color="#4facfe" />
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(0, 5)">
+                            <path d="M 6 30 C 12 40, 42 40, 48 26 C 52 18, 42 12, 34 14" fill="none" stroke="url(#logo-grad-header)" stroke-width="2.5" stroke-linecap="round" />
+                            <text x="3" y="30" font-family="'Outfit', sans-serif" font-weight="800" font-size="24" fill="#ffffff">a</text>
+                            <text x="17" y="31" font-family="'Outfit', sans-serif" font-weight="800" font-size="28" fill="url(#logo-grad-header)">2</text>
+                            <text x="34" y="30" font-family="'Outfit', sans-serif" font-weight="800" font-size="24" fill="#ffffff">z</text>
+                            <rect x="46" y="8" width="3" height="3" fill="#00f2fe" />
+                            <rect x="51" y="5" width="4" height="4" fill="#4facfe" />
+                            <rect x="49" y="14" width="2" height="2" fill="#00f2fe" />
+                            <rect x="54" y="11" width="3" height="3" fill="#4facfe" />
+                        </g>
+                        <g transform="translate(68, 8)">
+                            <text x="0" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="19" fill="#ffffff" letter-spacing="0.5">a2z</text>
+                            <text x="36" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="19" fill="url(#logo-grad-header)" letter-spacing="0.5">TECH</text>
+                            <text x="0" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="8.5" fill="#9ca3af" letter-spacing="2.5">SOLUTIONS.LK</text>
+                        </g>
+                    </svg>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Showcase</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="mobile-only"><a href="tel:0789656969" class="nav-phone-link-mobile" id="dyn-nav-phone-mobile"><i class="fa-solid fa-phone"></i> 078 965 6969</a></li>
+                </ul>
+
+                <div class="nav-cta">
+                    <a href="tel:0789656969" class="nav-phone-link" id="dyn-nav-phone"><i class="fa-solid fa-phone"></i> 078 965 6969</a>
+                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                    <button class="burger" aria-label="Toggle menu" id="burger-menu">
+                        <div class="line1"></div>
+                        <div class="line2"></div>
+                        <div class="line3"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content fade-in">
+                    <div class="badge">
+                        <span class="dot"></span> Leading Tech Solutions in Sri Lanka
+                    </div>
+                    <h1 id="dyn-hero-title">Empowering Your <br><span class="gradient-text">Digital Future</span></h1>
+                    <p id="dyn-hero-subtitle">We craft premium web experiences, tailor-made software solutions, and data-driven marketing strategies designed to accelerate your business growth.</p>
+                    <div class="hero-actions">
+                        <a href="#services" class="btn btn-primary">Explore Services</a>
+                        <a href="#contact" class="btn btn-secondary">Book a Consultation</a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual fade-in delay-2">
+                    <div class="visual-backdrop"></div>
+                    <div class="device-mockup">
+                        <div class="mockup-header">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-code-block">
+                                <div class="mockup-code-line">
+                                    <span class="mockup-keyword">const</span>
+                                    <span class="mockup-variable">a2zTech</span>
+                                    <span>=</span>
+                                    <span>{</span>
+                                </div>
+                                <div class="mockup-code-line" style="padding-left: 1rem;">
+                                    <span class="mockup-variable">mission</span><span>:</span>
+                                    <span class="mockup-string">"Empower Businesses"</span><span>,</span>
+                                </div>
+                                <div class="mockup-code-line" style="padding-left: 1rem;">
+                                    <span class="mockup-variable">webDev</span><span>:</span>
+                                    <span class="mockup-string">"Modern & Fast"</span><span>,</span>
+                                </div>
+                                <div class="mockup-code-line" style="padding-left: 1rem;">
+                                    <span class="mockup-variable">customSoftware</span><span>:</span>
+                                    <span class="mockup-string">"Robust & Scalable"</span><span>,</span>
+                                </div>
+                                <div class="mockup-code-line" style="padding-left: 1rem;">
+                                    <span class="mockup-variable">clientSatisfaction</span><span>:</span>
+                                    <span class="mockup-number">100</span>
+                                </div>
+                                <div class="mockup-code-line">
+                                    <span>};</span>
+                                </div>
+                            </div>
+                            <div class="mockup-line"></div>
+                            <div class="mockup-line" style="width: 80%;"></div>
+                            <div class="mockup-code-block" style="margin-top: auto;">
+                                <div class="mockup-code-line">
+                                    <span class="mockup-keyword">function</span>
+                                    <span class="mockup-variable">buildSuccess</span><span>() {</span>
+                                </div>
+                                <div class="mockup-code-line" style="padding-left: 1rem;">
+                                    <span class="mockup-keyword">return</span>
+                                    <span class="mockup-variable">a2zTech</span><span>.</span><span class="mockup-variable">empower</span><span>();</span>
+                                </div>
+                                <div class="mockup-code-line">
+                                    <span>}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <span class="stat-number" data-target="150">0</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item fade-in delay-1">
+                    <span class="stat-number" data-target="99">0</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+                <div class="stat-item fade-in delay-2">
+                    <span class="stat-number" data-target="12">0</span>
+                    <span class="stat-label">Tech Experts</span>
+                </div>
+                <div class="stat-item fade-in delay-3">
+                    <span class="stat-number" data-target="24">0</span>
+                    <span class="stat-label">Support Hours</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="badge"><span class="dot"></span> What We Offer</div>
+                <h2>Our Premium Technical Services</h2>
+                <p>We provide full-scale digital engineering services designed to translate your goals into robust, scalable technology solutions.</p>
+            </div>
+            
+            <div class="services-grid" id="services-grid-target">
+                <!-- Dynamically loaded from database API -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-visual fade-in">
+                    <!-- Dynamic CSS graphic visual layout representing corporate office/code -->
+                    <div class="about-visual-overlay">
+                        <div class="badge" style="margin-bottom: 0.5rem;"><span class="dot"></span> Since 2022</div>
+                        <h3>Innovating Beyond Limits</h3>
+                        <p>Delivering high-tech systems to local and global enterprises.</p>
+                    </div>
+                </div>
+                
+                <div class="about-content fade-in delay-2">
+                    <div class="badge"><span class="dot"></span> Who We Are</div>
+                    <h2>Your Trusted Technology Partner</h2>
+                    <p>At A2Z Tech Solutions, we believe in bridging the gap between business challenges and technical execution. We combine our expertise in cutting-edge web architecture, database engineering, and software automation to bring premium, enterprise-grade capabilities to businesses of all sizes.</p>
+                    
+                    <div class="about-features">
+                        <div class="about-feature-item">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div>
+                                <h4>Agile Implementation</h4>
+                                <p>Iterative, transparent development sprints keeping you aligned and involved at each step.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div>
+                                <h4>Premium Aesthetics & Layouts</h4>
+                                <p>Custom UI design focusing on user conversions, fast speeds, and accessibility standards.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div>
+                                <h4>Robust Technical Support</h4>
+                                <p>Comprehensive testing, standard server monitoring, and prompt code updates when requested.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio / Showcase Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="badge"><span class="dot"></span> Case Studies</div>
+                <h2>Our Selected Tech Showcases</h2>
+                <p>A closer look at how we architected and scaled websites and applications to deliver measurable business results.</p>
+            </div>
+            
+            <div class="portfolio-filter fade-in">
+                <button class="filter-btn active" data-filter="all">All Solutions</button>
+                <button class="filter-btn" data-filter="web">Websites</button>
+                <button class="filter-btn" data-filter="app">Applications</button>
+                <button class="filter-btn" data-filter="marketing">E-Commerce</button>
+            </div>
+            
+            <div class="portfolio-grid" id="portfolio-grid-target">
+                <!-- Dynamically loaded from database API -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <div class="badge"><span class="dot"></span> Let's Work Together</div>
+                    <h2>Start Your Technical Project Today</h2>
+                    <p>Have an idea or a workflow problem to solve? Write to us, and our engineers will help you architect the best strategy.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="contact-text">
+                                <h4>Email Us Directly</h4>
+                                <p id="dyn-contact-email">info@a2ztechsolutions.lk</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div class="contact-text">
+                                <h4>Call Our Engineers</h4>
+                                <p id="dyn-contact-phone"><a href="tel:0789656969" style="color: inherit; text-decoration: none;">078 965 6969</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="contact-text">
+                                <h4>Visit Our Office</h4>
+                                <p id="dyn-contact-address">Level 5, Galle Road, Colombo 03, Sri Lanka</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container fade-in delay-2">
+                    <form class="contact-form" id="main-contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Full Name</label>
+                            <input type="text" id="contact-name" class="form-control" placeholder="Subhash Ketagoda" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" class="form-control" placeholder="example@domain.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Project Goal</label>
+                            <input type="text" id="contact-subject" class="form-control" placeholder="E-commerce Web App, SEO, Custom Software..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Project Details</label>
+                            <textarea id="contact-message" class="form-control" placeholder="Tell us about your requirements, timelines, etc..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Project Request</button>
+                        <div class="form-message" id="form-feedback"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand fade-in">
+                    <a href="#hero" class="logo" aria-label="A2Z Tech Solutions Home">
+                        <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 50" width="170" height="36">
+                            <defs>
+                                <linearGradient id="logo-grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00f2fe" />
+                                    <stop offset="100%" stop-color="#4facfe" />
+                                </linearGradient>
+                            </defs>
+                            <g transform="translate(0, 5)">
+                                <path d="M 6 30 C 12 40, 42 40, 48 26 C 52 18, 42 12, 34 14" fill="none" stroke="url(#logo-grad-footer)" stroke-width="2.5" stroke-linecap="round" />
+                                <text x="3" y="30" font-family="'Outfit', sans-serif" font-weight="800" font-size="24" fill="#ffffff">a</text>
+                                <text x="17" y="31" font-family="'Outfit', sans-serif" font-weight="800" font-size="28" fill="url(#logo-grad-footer)">2</text>
+                                <text x="34" y="30" font-family="'Outfit', sans-serif" font-weight="800" font-size="24" fill="#ffffff">z</text>
+                                <rect x="46" y="8" width="3" height="3" fill="#00f2fe" />
+                                <rect x="51" y="5" width="4" height="4" fill="#4facfe" />
+                                <rect x="49" y="14" width="2" height="2" fill="#00f2fe" />
+                                <rect x="54" y="11" width="3" height="3" fill="#4facfe" />
+                            </g>
+                            <g transform="translate(68, 8)">
+                                <text x="0" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="19" fill="#ffffff" letter-spacing="0.5">a2z</text>
+                                <text x="36" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="19" fill="url(#logo-grad-footer)" letter-spacing="0.5">TECH</text>
+                                <text x="0" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="8.5" fill="#9ca3af" letter-spacing="2.5">SOLUTIONS.LK</text>
+                            </g>
+                        </svg>
+                    </a>
+                    <p>Premier digital design & software engineering boutique delivering custom IT architectures for ambitious brands worldwide.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col fade-in delay-1">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Company</a></li>
+                        <li><a href="#portfolio">Showcase Grid</a></li>
+                        <li><a href="#contact">Contact Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col fade-in delay-2">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#services">Custom Web Dev</a></li>
+                        <li><a href="#services">Cloud Deployments</a></li>
+                        <li><a href="#services">Android & iOS Apps</a></li>
+                        <li><a href="#services">Search Engine Optimization</a></li>
+                        <li><a href="#services">Database Architecture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col fade-in delay-3">
+                    <h3>Newsletter</h3>
+                    <div class="footer-newsletter">
+                        <p>Sign up to stay updated on tech updates and our new design insights.</p>
+                        <form class="newsletter-form" id="newsletter-form">
+                            <input type="email" class="form-control" placeholder="Enter email" required>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 A2Z Tech Solutions. All rights reserved. Designed with precision.</p>
+                <div class="footer-policy-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

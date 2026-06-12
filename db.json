@@ -1,0 +1,75 @@
+{
+  "inquiries": [],
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "Aura Retail Platform",
+      "category": "marketing",
+      "description": "A high-performance online shop architecture optimizing checkout conversion by 35% using React and optimized cloud hosting.",
+      "icon": "fa-solid fa-cart-shopping"
+    },
+    {
+      "id": "project-2",
+      "title": "Pulse HR Management System",
+      "category": "app",
+      "description": "Internal employee attendance, payroll automation, and analytical metrics app developed for local manufacturing brands.",
+      "icon": "fa-solid fa-people-group"
+    },
+    {
+      "id": "project-3",
+      "title": "Grand Residencia Portal",
+      "category": "web",
+      "description": "Fully SEO-optimized room reservation system featuring automated booking emails, payment gateways, and multilingual support.",
+      "icon": "fa-solid fa-hotel"
+    }
+  ],
+  "services": [
+    {
+      "id": "service-1",
+      "title": "Web Development",
+      "icon": "fa-solid fa-code",
+      "description": "Highly responsive, SEO-optimized, and premium websites built using clean code structures to match modern UI/UX guidelines."
+    },
+    {
+      "id": "service-2",
+      "title": "Custom Software",
+      "icon": "fa-solid fa-laptop-code",
+      "description": "Bespoke enterprise desktop and cloud software applications tailored specifically to optimize your internal operations and workflows."
+    },
+    {
+      "id": "service-3",
+      "title": "Mobile Applications",
+      "icon": "fa-solid fa-mobile-screen-button",
+      "description": "Stunning, high-performance native and cross-platform mobile apps for Android and iOS devices designed to captivate users."
+    },
+    {
+      "id": "service-4",
+      "title": "Cloud Infrastructure",
+      "icon": "fa-solid fa-server",
+      "description": "Robust cloud server architecture deployment, database configurations, optimization, management, and security audits."
+    },
+    {
+      "id": "service-5",
+      "title": "Digital Marketing",
+      "icon": "fa-solid fa-chart-line",
+      "description": "Strategic Search Engine Optimization (SEO), PPC, and social media campaigns engineered to scale your digital presence."
+    },
+    {
+      "id": "service-6",
+      "title": "Cyber Security",
+      "icon": "fa-solid fa-shield-halved",
+      "description": "Comprehensive security testing, vulnerability checks, secure code audits, and server hardening against threat factors."
+    }
+  ],
+  "settings": {
+    "phone": "078 965 6969",
+    "email": "info@a2ztechsolutions.lk",
+    "address": " 272/5A Himbutana Ln, Mulleriyawa 10620",
+    "heroTitle": "Empowering Your Digital Future",
+    "heroSubtitle": "We craft premium web experiences, tailor-made software solutions, and data-driven marketing strategies designed to accelerate your business growth."
+  },
+  "auth": {
+    "username": "admin",
+    "passwordHash": "$2a$10$QPssIalFlE2jYpccnqWsIOg0a1nuz.fKOPvvlgFtKL9Zutc9pfg9q"
+  }
+}

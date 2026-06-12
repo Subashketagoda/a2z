@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2Z Tech Solutions | Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #080b11;
+            --bg-surface: #0f1420;
+            --bg-card: rgba(17, 24, 39, 0.65);
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --accent: #a855f7;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --glass-border: rgba(255, 255, 255, 0.07);
+            --shadow-glow: 0 0 20px rgba(0, 242, 254, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Particles canvas in admin background too for consistency */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* --- Login Overlay --- */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 11, 17, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .login-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-control {
+            background: rgba(8, 11, 17, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.5rem;
+            padding: 0.85rem 1rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        .btn-danger:hover {
+            background: #ef4444;
+            color: var(--bg-dark);
+        }
+
+        .btn-logout {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-logout:hover {
+            border-color: #f87171;
+            color: #f87171;
+        }
+
+        .error-message {
+            color: #f87171;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        /* --- Dashboard Panel --- */
+        #dashboard-view {
+            display: none;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dashboard-title h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(0, 242, 254, 0.08);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* --- Stats Overview --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .stat-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            color: var(--accent);
+            background: rgba(168, 85, 247, 0.05);
+            border-color: rgba(168, 85, 247, 0.15);
+        }
+
+        .stat-info h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-info p {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+        }
+
+        /* --- Sections Views --- */
+        .panel-section {
+            display: none;
+        }
+
+        .panel-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Table Layouts --- */
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .inquiry-message {
+            white-space: pre-line;
+            max-width: 400px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .inquiry-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Projects Manager Layout --- */
+        .manager-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 2rem;
+        }
+
+        .manager-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .manager-card h2 {
+            font-size: 1.35rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .manager-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .project-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .project-item:hover {
+            border-color: rgba(0, 242, 254, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .project-item-info h4 {
+            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 0.2rem;
+        }
+
+        .project-item-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .badge-category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            color: var(--primary);
+            border-radius: 2rem;
+            text-transform: uppercase;
+        }
+
+        .badge-category.app {
+            background: rgba(168, 85, 247, 0.08);
+            border-color: rgba(168, 85, 247, 0.15);
+            color: var(--accent);
+        }
+
+        .badge-category.marketing {
+            background: rgba(79, 172, 254, 0.08);
+            border-color: rgba(79, 172, 254, 0.15);
+            color: var(--secondary);
+        }
+
+        /* --- Empty State --- */
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            opacity: 0.3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .manager-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Admin Login Overlay -->
+    <div id="login-overlay">
+        <div class="login-card">
+            <div class="login-logo">A2Z TECH ADMIN</div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary)">Please authenticate to access inquiry submissions and portfolio items.</p>
+            <form id="login-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="admin" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div class="error-message" id="login-error">Invalid credentials. Please try again.</div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Main View -->
+    <div id="dashboard-view" class="container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="dashboard-title">
+                <h1>Dashboard</h1>
+                <ul class="nav-tabs">
+                    <li><button class="tab-btn active" data-target="panel-inquiries">Inquiries Inbox</button></li>
+                    <li><button class="tab-btn" data-target="panel-projects">Manage Showcase</button></li>
+                    <li><button class="tab-btn" data-target="panel-services">Manage Services</button></li>
+                    <li><button class="tab-btn" data-target="panel-settings">Site Settings</button></li>
+                    <li><button class="tab-btn" data-target="panel-security">Security</button></li>
+                </ul>
+            </div>
+            <button class="btn btn-logout" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </header>
+
+        <!-- Stats row -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <div class="stat-info">
+                    <h3>Total Inquiries</h3>
+                    <p id="stat-inquiries-count">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="stat-info">
+                    <h3>Showcase Items</h3>
+                    <p id="stat-projects-count">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
+                <div class="stat-info">
+                    <h3>Home Services</h3>
+                    <p id="stat-services-count">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inquiries Panel -->
+        <div id="panel-inquiries" class="panel-section active">
+            <div class="table-container">
+                <table id="inquiries-table">
+                    <thead>
+                        <tr>
+                            <th>Sender</th>
+                            <th>Email</th>
+                            <th>Subject & Message</th>
+                            <th>Date Recieved</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inquiries-list-body">
+                        <!-- Populated via Javascript -->
+                    </tbody>
+                </table>
+                <div id="inquiries-empty" class="empty-state" style="display: none;">
+                    <i class="fa-regular fa-envelope"></i>
+                    <p>No contact submissions found in inbox database.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Manager Panel -->
+        <div id="panel-projects" class="panel-section">
+            <div class="manager-grid">
+                <!-- Form column -->
+                <div class="manager-card">
+                    <h2>Add New Showcase</h2>
+                    <form class="manager-form" id="project-form">
+                        <div class="form-group">
+                            <label for="proj-title">Project Title</label>
+                            <input type="text" id="proj-title" class="form-control" placeholder="e.g. Retail Web App" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-category">Category</label>
+                            <select id="proj-category" class="form-control" style="background: rgba(8, 11, 17, 0.9);" required>
+                                <option value="web">Website Design</option>
+                                <option value="app">Custom Application</option>
+                                <option value="marketing">E-Commerce</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-icon">FontAwesome Icon Class</label>
+                            <input type="text" id="proj-icon" class="form-control" placeholder="e.g. fa-solid fa-cart-shopping" required>
+                            <small style="color: var(--text-secondary); font-size: 0.75rem;">Ex: fa-solid fa-code, fa-solid fa-server, fa-solid fa-hotel</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-desc">Description Summary</label>
+                            <textarea id="proj-desc" class="form-control" style="resize: none; min-height: 100px;" placeholder="Outline the technology Stack, results..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Showcase Card</button>
+                    </form>
+                </div>
+
+                <!-- List column -->
+                <div class="manager-card">
+                    <h2>Current Showcase</h2>
+                    <div class="projects-list" id="projects-list-container">
+                        <!-- Populated via Javascript -->
+                    </div>
+                    <div id="projects-empty" class="empty-state" style="display: none;">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>No project showcase items found in database.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Manager Panel -->
+        <div id="panel-services" class="panel-section">
+            <div class="manager-grid">
+                <!-- Form column -->
+                <div class="manager-card">
+                    <h2 id="service-form-title">Add New Service</h2>
+                    <form class="manager-form" id="services-form">
+                        <input type="hidden" id="service-id">
+                        <div class="form-group">
+                            <label for="service-title">Service Title</label>
+                            <input type="text" id="service-title-input" class="form-control" placeholder="e.g. Web Development" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-icon-input">FontAwesome Icon Class</label>
+                            <input type="text" id="service-icon-input" class="form-control" placeholder="e.g. fa-solid fa-code" required>
+                            <small style="color: var(--text-secondary); font-size: 0.75rem;">Ex: fa-solid fa-code, fa-solid fa-mobile-screen-button, fa-solid fa-chart-line</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-desc">Service Description</label>
+                            <textarea id="service-desc-input" class="form-control" style="resize: none; min-height: 100px;" placeholder="Brief summary of this service..." required></textarea>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;" id="service-submit-btn">Create Service</button>
+                            <button type="button" class="btn btn-secondary" style="display: none;" id="service-cancel-btn">Cancel Edit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- List column -->
+                <div class="manager-card">
+                    <h2>Current Services</h2>
+                    <div class="projects-list" id="services-list-container">
+                        <!-- Populated via Javascript -->
+                    </div>
+                    <div id="services-empty-state" class="empty-state" style="display: none;">
+                        <i class="fa-solid fa-gears"></i>
+                        <p>No service cards found in database.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Site Settings Panel -->
+        <div id="panel-settings" class="panel-section">
+            <div class="manager-card" style="max-width: 600px; margin: 0 auto;">
+                <h2>Global Site Settings</h2>
+                <form class="manager-form" id="settings-form">
+                    <div class="form-group">
+                        <label for="settings-phone">Company Phone Number</label>
+                        <input type="text" id="settings-phone" class="form-control" placeholder="e.g. 078 965 6969" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="settings-email">Company Email Address</label>
+                        <input type="email" id="settings-email" class="form-control" placeholder="e.g. info@domain.lk" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="settings-address">Office Address</label>
+                        <input type="text" id="settings-address" class="form-control" placeholder="e.g. Level 5, Galle Road, Colombo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="settings-hero-title">Hero Title Text</label>
+                        <input type="text" id="settings-hero-title" class="form-control" placeholder="e.g. Empowering Your Digital Future" required>
+                        <small style="color: var(--text-secondary); font-size: 0.75rem;">Split title with " - " or " | " to add gradient accent. Ex: Empowering Your - Digital Future</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="settings-hero-subtitle">Hero Subtitle Summary</label>
+                        <textarea id="settings-hero-subtitle" class="form-control" style="resize: none; min-height: 80px;" placeholder="Description under the hero title..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save Global Settings</button>
+                    <div class="form-message" id="settings-feedback" style="margin-top: 1rem;"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Security Panel -->
+        <div id="panel-security" class="panel-section">
+            <div class="manager-card" style="max-width: 500px; margin: 0 auto;">
+                <h2>Change Admin Password</h2>
+                <form class="manager-form" id="password-form">
+                    <div class="form-group">
+                        <label for="security-current">Current Password</label>
+                        <input type="password" id="security-current" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="security-new">New Password</label>
+                        <input type="password" id="security-new" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="security-confirm">Confirm New Password</label>
+                        <input type="password" id="security-confirm" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Update Security Password</button>
+                    <div class="form-message" id="password-feedback" style="margin-top: 1rem;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="admin.js"></script>
+</body>
+</html>
